@@ -21,3 +21,15 @@ def test_payrate(item_factory):
     Item.pay_rate = 0.5
     item_factory.apply_discount()
     assert item_factory.price == 5_000
+
+
+def test_string_to_number(item_factory):
+    assert Item.string_to_number('10.0') == 10
+    assert item_factory.string_to_number('20') == 20
+
+
+def test_name_setter(item_factory):
+    item_factory.name = 'shortname'
+    assert item_factory.name == 'shortname'
+    item_factory.name = 'verylongname'
+    assert item_factory.name == 'verylongn'

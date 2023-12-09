@@ -48,7 +48,9 @@ class Item:
 
     @staticmethod
     def string_to_number(string: str) -> int:
-        return int(string)
+        str = string.split('.')
+        # print(str)
+        return int(str[0])
 
     @classmethod
     def instantiate_from_csv(cls, filepath: str):

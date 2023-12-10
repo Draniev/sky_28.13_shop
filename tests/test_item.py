@@ -33,3 +33,8 @@ def test_name_setter(item_factory):
     assert item_factory.name == 'shortname'
     item_factory.name = 'verylongname'
     assert item_factory.name == 'verylongn'
+
+
+def test_repr_str(item_factory):
+    assert repr(item_factory) == "Item('testname', 10000, 5)"
+    assert str(item_factory) == 'testname'

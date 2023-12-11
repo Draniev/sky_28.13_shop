@@ -46,6 +46,12 @@ class Item:
         """
         self.price *= Item.pay_rate
 
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError('Складывать можно только Item и его наследников')
+
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 

@@ -4,11 +4,6 @@ import pytest
 from src.item import Item
 
 
-@pytest.fixture
-def item_factory():
-    return Item('testname', 10_000, 5)
-
-
 def test_all_len(item_factory):
     assert len(Item.all) == 1
 

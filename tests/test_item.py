@@ -1,5 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
+from src.item import InstantiateCSVError
 
 from src.item import Item
 
@@ -33,3 +34,13 @@ def test_name_setter(item_factory):
 def test_repr_str(item_factory):
     assert repr(item_factory) == "Item('testname', 10000, 5)"
     assert str(item_factory) == 'testname'
+
+
+def test_csvreader_filenotfound():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv('badfile.csv')
+
+
+def test_csvreader_badfile():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv('tests/badfile.csv')

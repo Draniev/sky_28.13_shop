@@ -1,4 +1,13 @@
 import csv
+import os
+
+
+class InstantiateCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = args[0] if args else 'Похоже с файлом что-то плохо, почините!'
+
+    def __str__(self):
+        return self.message
 
 
 class Item:
@@ -67,10 +76,18 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, filepath: str):
-        with open(filepath, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls(row['name'],
-                    float(row['price']),
-                    int(row['quantity'])
-                    )
+        try:
+            csvfile = open(filepath, newline='')
+        except Exception:
+            raise FileNotFoundError('Проблема с файлом... Не найден?')
+        else:
+            with csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    print(row)
+                    if len(row) != 3:
+                        raise InstantiateCSVError
+                    cls(row['name'],
+                        float(row['price']),
+                        int(row['quantity'])
+                        )
